@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח זמני תפילה - פדואל</title>
+    <style>
+        :root { --primary: #2c3e50; --secondary: #3498db; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: var(--primary); border-bottom: 3px solid var(--secondary); padding-bottom: 10px; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+        .card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 15px; background: #fff; }
+        .card h2 { margin-top: 0; font-size: 1.2em; color: var(--secondary); border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95em; }
+        th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: right; }
+        th { color: #7f8c8d; font-weight: 600; width: 40%; }
+        .editable { cursor: pointer; transition: background 0.3s; }
+        .editable:hover { background: #fffde7; }
+        .schedule-table { width: 100%; margin-top: 20px; overflow-x: auto; display: block; }
+        .schedule-table th { background: var(--primary); color: white; border: 1px solid #444; text-align: center; }
+        .schedule-table td { border: 1px solid #ddd; text-align: center; }
+        .highlight { background: #e3f2fd; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>לוח זמנים לקיץ ה'תשפ"ו - פדואל</h1>
+
+    <div class="grid">
+        <div class="card">
+            <h2>תפילות חול (זמנים קבועים)</h2>
+            <table>
+                <tr><th>שחרית א'</th><td class="editable" contenteditable="true">5:20 (אוהל רבקה) [cite: 6]</td></tr>
+                <tr><th>שחרית ב'</th><td class="editable" contenteditable="true">6:00 (מאור יוסף) [cite: 6]</td></tr>
+                <tr><th>שחרית ג'</th><td class="editable" contenteditable="true">7:00 (מ"י) [cite: 8]</td></tr>
+                <tr><th>שחרית ד'</th><td class="editable" contenteditable="true">8:00 (אוהל רבקה) [cite: 8]</td></tr>
+                <tr><th>מנחה גדולה</th><td class="editable" contenteditable="true">13:30 (אייר, מ"י) [cite: 7]</td></tr>
+                <tr><th>ערבית</th><td class="editable" contenteditable="true">20:20 (מ"י) [cite: 6]</td></tr>
+                <tr><th>ערבית מאוחרת</th><td class="editable" contenteditable="true">21:00, 22:00, 23:00 [cite: 18]</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>שבת (כללי)</h2>
+            <table>
+                <tr><th>שחרית ותיקין</th><td class="editable" contenteditable="true">20 דק' לפני הנץ [cite: 7]</td></tr>
+                <tr><th>שחרית נוער/ילדים</th><td class="editable" contenteditable="true">10:00 (מ"י) [cite: 14]</td></tr>
+                <tr><th>מנחה גדולה</th><td class="editable" contenteditable="true">13:20 [cite: 14]</td></tr>
+                <tr><th>מנחה קטנה (א')</th><td class="editable" contenteditable="true">שעתיים לפני מוצ"ש [cite: 15]</td></tr>
+                <tr><th>ערבית</th><td class="editable" contenteditable="true">בצאת השבת [cite: 16]</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section" style="margin-top:30px;">
+        <h2 style="text-align:right; color: var(--primary);">לוח זמנים משתנה (לפי פרשה)</h2>
+        <div class="schedule-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>פרשה</th>
+                        <th>הדלקת נרות</th>
+                        <th>פלג המנחה</th>
+                        <th>צאת שבת</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>בהעלתך</td><td>19:10 </td><td>18:11 </td><td>20:20 </td></tr>
+                    <tr class="highlight"><td>שלח לך</td><td>19:14 </td><td>18:15 </td><td>20:24 </td></tr>
+                    <tr><td>קרח</td><td>19:17 </td><td>18:17 </td><td>20:28 </td></tr>
+                    <tr><td>חקת</td><td>19:19 </td><td>18:20 </td><td>20:30 </td></tr>
+                    <tr><td>בלק</td><td>19:21 </td><td>18:21 </td><td>20:31 </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <p style="margin-top: 20px; font-size: 0.85em; color: #666;">
+        * ניתן לערוך את הזמנים בטבלאות העליונות בלחיצה עליהם.<br>
+        * הנתונים מבוססים על לוח קיץ ה'תשפ"ו - פדואל[cite: 2].
+    </p>
+</div>
+
+</body>
+</html>
