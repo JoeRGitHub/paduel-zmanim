@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול - פדואל</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-links a.active {
+            background: var(--secondary);
+        }
+
+        /* Login Page */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            margin: 0 0 30px 0;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .error-message {
+            background: #fee;
+            color: var(--danger);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Admin Panel */
+        .admin-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: none;
+        }
+
+        .admin-container.show {
+            display: block;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h2 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .btn-logout {
+            background: var(--danger);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #c0392b;
+        }
+
+        .admin-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .admin-section h3 {
+            margin: 0 0 20px 0;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .upload-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group select,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            border-color: var(--secondary);
+            background: #f8f9fa;
+        }
+
+        .file-input-label.has-file {
+            border-color: var(--success);
+            background: #d4edda;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-success:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* PDF List */
+        .pdf-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .pdf-item {
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .pdf-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .pdf-info {
+            flex: 1;
+        }
+
+        .pdf-info h4 {
+            margin: 0 0 5px 0;
+            color: var(--primary);
+        }
+
+        .pdf-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .pdf-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.85em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #e67e22;
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+
+        .preview-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .preview-container.show {
+            display: block;
+        }
+
+        .preview-container iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .pdf-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .pdf-actions {
+                width: 100%;
+            }
+
+            .pdf-actions button {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>ניהול - פדואל</h1>
+            <nav class="nav-links">
+                <a href="index.html">לוח זמנים נוכחי</a>
+                <a href="library.html">ספרייה</a>
+                <a href="admin.html" class="active">ניהול</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="login-container" id="login-container">
+        <h2>🔐 התחברות למנהל</h2>
+        <div class="error-message" id="login-error">שם משתמש או סיסמה שגויים</div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">שם משתמש</label>
+                <input type="text" id="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">סיסמה</label>
+                <input type="password" id="password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary">התחבר</button>
+        </form>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-container" id="admin-panel">
+        <div class="admin-header">
+            <h2>לוח בקרה</h2>
+            <button class="btn-logout" onclick="logout()">התנתק</button>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="admin-section">
+            <h3>📤 העלאת לוח זמנים חדש</h3>
+
+            <div class="alert alert-info" id="upload-info">
+                לאחר מילוי הטופס והעלאת הקובץ, תקבל הוראות כיצד להשלים את התהליך.
+            </div>
+
+            <div class="alert alert-success" id="upload-success"></div>
+
+            <form class="upload-form" id="upload-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pdf-title">כותרת</label>
+                        <input type="text" id="pdf-title" placeholder="לוח זמני תפילה..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pdf-season">עונה</label>
+                        <select id="pdf-season" required>
+                            <option value="">בחר עונה</option>
+                            <option value="summer">קיץ</option>
+                            <option value="winter">חורף</option>
+                            <option value="tishrei">תשרי</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pdf-year">שנה עברית (מספרים)</label>
+                        <input type="number" id="pdf-year" placeholder="5786" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pdf-year-hebrew">שנה עברית (עברית)</label>
+                        <input type="text" id="pdf-year-hebrew" placeholder='תשפ"ו' required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>קובץ PDF</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="pdf-file" accept=".pdf" required>
+                        <label for="pdf-file" class="file-input-label" id="file-label">
+                            📄 לחץ לבחירת קובץ PDF
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" id="upload-btn">העלה לוח זמנים</button>
+            </form>
+
+            <div class="preview-container" id="preview-container">
+                <h4>תצוגה מקדימה:</h4>
+                <iframe id="pdf-preview"></iframe>
+            </div>
+        </div>
+
+        <!-- Existing PDFs Section -->
+        <div class="admin-section">
+            <h3>📚 לוחות זמנים קיימים</h3>
+            <div class="pdf-list" id="pdf-list">
+                <p style="color: #888;">טוען...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

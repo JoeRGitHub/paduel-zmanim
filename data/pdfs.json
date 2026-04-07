@@ -1,0 +1,20 @@
+{
+  "pdfs": [
+    {
+      "id": "summer-5786",
+      "title": "לוח זמני תפילה לקיץ התשפ\"ו",
+      "season": "summer",
+      "seasonHebrew": "קיץ",
+      "year": 5786,
+      "hebrewYear": "תשפ\"ו",
+      "filename": "summer-5786.pdf",
+      "uploadDate": "2026-04-07",
+      "tags": ["קיץ", "תשפו", "summer"]
+    }
+  ],
+  "seasons": [
+    {"value": "summer", "label": "קיץ", "labelEn": "Summer"},
+    {"value": "winter", "label": "חורף", "labelEn": "Winter"},
+    {"value": "tishrei", "label": "תשרי", "labelEn": "Tishrei"}
+  ]
+}
